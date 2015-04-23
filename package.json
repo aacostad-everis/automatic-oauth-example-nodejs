@@ -14,12 +14,7 @@
   "bugs": {
     "url": "http://github.com/automatic/automatic-oauth-example-nodejs/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "Apache-2.0",
   "dependencies": {
     "express": "~4.x.x",
     "express-session": "~1.9.x",
