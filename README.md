@@ -1,6 +1,6 @@
-# Automatic oAuth Example App
+# Automatic OAuth Example App
 
-This is a node.js app that demonstrates how to authenticate with [Automatic](http://automatic.com) using oAuth. It demonstrates the use of the [Automatic REST API](http://developer.automatic.com).
+This is a node.js app that demonstrates how to authenticate with [Automatic](http://automatic.com) using OAuth. It demonstrates the use of the [Automatic REST API](http://developer.automatic.com).
 
 ## Demo
 
@@ -50,6 +50,10 @@ Deploy your app to heroku:
     git push heroku master
 
 See [deploying a node.js app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) for more information.
+
+### Support
+
+Please write to developer@automatic.com if you have any questions or need help.
 
 ## License
 
