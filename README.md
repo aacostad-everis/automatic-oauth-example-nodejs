@@ -6,7 +6,15 @@ This is a node.js app that demonstrates how to authenticate with [Automatic](htt
 
 A demo version of this application is available at [http://automatic-oauth-example-nodejs.herokuapp.com/](http://automatic-oauth-example-nodejs.herokuapp.com/).
 
-## Running
+## One-Click deploy to Heroku
+
+Click this button to instantly deploy this app to Heroku. You'll need an [Automatic client ID and secret](http://developer.automatic.com).
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+After deploying, you will need to use the Automatic [Developer Apps Manager](https://developer.automatic.com/my-apps/) to set your application's redirect URL to match the Heroku app name you selected when deploying. For instance, if you name your app `oauth-test` in Heroku your redirect URL should be `https://oauth-test.herokuapp.com/redirect`. Note that the URL must start with `https`.
+
+## Running Locally
 
 ### Prerequisites
 
