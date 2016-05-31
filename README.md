@@ -32,7 +32,7 @@ Add your Automatic client id and client secret to `app.js` or as environment var
 
 ### Run the app
 
-    node app
+    npm start
 
 ### View the app
 
