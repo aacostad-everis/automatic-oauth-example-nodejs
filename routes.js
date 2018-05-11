@@ -6,6 +6,7 @@ module.exports = {
 }
 
 const oauth = require('./oauth-setup');
+const api = require('./api');
 
 function home(req, res) {
   res.send('<a href="/auth">Log in with Automatic</a>');
@@ -31,6 +32,8 @@ function accessToken(req, res) {
       return;
     }
 
+    api.accessToken(oauth.accessToken.create(result).token.access_token);
+
     // Attach `token` to the user's session for later use
     // This is where you could save the `token` to a database for later use
     req.session.token = oauth.accessToken.create(result);
@@ -40,8 +43,8 @@ function accessToken(req, res) {
 }
 
 function authorized(req, res) {
-  if (req.session.token) {
-    const msg = 'You are logged in.<br>Access Token: ' +  req.session.token.token.access_token;
+  if (api.accessToken()) {
+    const msg = 'You are logged in.<br>Access Token: ' +  api.accessToken();
     console.log(msg)
     res.send(msg);
   } else {
