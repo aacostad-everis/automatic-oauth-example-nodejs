@@ -1,23 +1,15 @@
 const express = require('express');
 const session = require('express-session');
-const port = process.env.PORT || 3000;
 const app = express();
 
-// Add your automatic client id and client secret here or as environment variables
-const AUTOMATIC_CLIENT_ID = process.env.AUTOMATIC_CLIENT_ID || 'your-automatic-client-id';
-const AUTOMATIC_CLIENT_SECRET = process.env.AUTOMATIC_CLIENT_SECRET || 'your-automatic-client-secret';
+const { 
+  home, 
+  authorization,
+  accessToken,
+  authorized
+} = require('./routes');
 
-const oauth2 = require('simple-oauth2')({
-  clientID: AUTOMATIC_CLIENT_ID,
-  clientSecret: AUTOMATIC_CLIENT_SECRET,
-  site: 'https://accounts.automatic.com',
-  tokenPath: '/oauth/access_token'
-});
-
-// Authorization uri definition
-const authorizationUri = oauth2.authCode.authorizeURL({
-  scope: 'scope:user:profile scope:trip scope:location scope:vehicle:profile scope:vehicle:events scope:behavior'
-});
+const port = process.env.PORT || 3000;
 
 // Enable sessions
 app.use(session({
@@ -26,51 +18,14 @@ app.use(session({
   saveUninitialized: true
 }));
 
-// Initial page redirecting to Automatic's oAuth page
-app.get('/auth', (req, res) => {
-  res.redirect(authorizationUri);
-});
-
-// Callback service parsing the authorization token and asking for the access token
-app.get('/redirect', (req, res) => {
-  const code = req.query.code;
-
-  function saveToken(error, result) {
-    if (error) {
-      console.log('Access token error', error.message);
-      res.send('Access token error: ' +  error.message);
-      return;
-    }
-
-    // Attach `token` to the user's session for later use
-    // This is where you could save the `token` to a database for later use
-    req.session.token = oauth2.accessToken.create(result);
-
-    res.redirect('/welcome');
-  }
-
-  oauth2.authCode.getToken({
-    code: code
-  }, saveToken);
-});
-
-app.get('/welcome', (req, res) => {
-  if (req.session.token) {
-    // Display token to authenticated user
-    console.log('Automatic access token', req.session.token.token.access_token);
-    res.send('You are logged in.<br>Access Token: ' +  req.session.token.token.access_token);
-  } else {
-    // No token, so redirect to login
-    res.redirect('/');
-  }
-});
-
-// Main page of app with link to log in
-app.get('/', (req, res) => {
-  res.send('<a href="/auth">Log in with Automatic</a>');
-});
+// Home route - there's only a link to /auth route
+app.get('/', home);
+// Auth Step 1 - redirection to Automatic oauth2 endpoint, passing requested scope
+app.get('/auth', authorization);
+// Auth Step 2 - callback service parsing the authorization token and asking for the access token
+app.get('/redirect', accessToken);
+// If access token exists, route will render user details
+app.get('/welcome', authorized);
 
 // Start server
-app.listen(port);
-
-console.log('Express server started on port ' + port);
+app.listen(port, () => console.log('Express server started on port ' + port));
