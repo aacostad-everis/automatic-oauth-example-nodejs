@@ -2,40 +2,35 @@
 // https://phabricator.automatic.co/T19790
 // this should become a part now newly extracted javascript auth/user api
 
-_accessToken = null;
+const request = require('superagent');
 
 module.exports = {
-  accessToken(token) {
-    if (token) {
-      _accessToken = token;
+  me(access_token) {
+    if (!access_token) {
+      res.sendStatus(401);
     }
-    return _accessToken;
-  },
 
-  me() {
-    if (req.session.isLoggedIn) {
-        request
-        .get('https://api.automatic.com/user/me/')
-        .set('Authorization', 'Bearer ' + req.session.token.access_token)
-        .set('Accept', 'application/json')
-        .end((err, userRes) => {
-            if (err) {
-                if (userRes.unauthorized) {
-                    req.session.destroy(function(err) {
-                        res.clearCookie('sessionid');
-                        res.sendStatus(401);
-                    });
-                } else {
-                    console.log(err, userRes);
-                    res.sendStatus(500);
-                }
-            } else {
-                res.send(userRes.body);
-            }
-        });
-    } else {
-        // No token
-        res.sendStatus(401);
-    }    
+    request
+      .get('https://api.automatic.com/user/me/')
+      .set('Authorization', 'Bearer ' + access_token)
+      .set('Accept', 'application/json')
+      .end((err, userRes) => {
+        console.log(userRes)
+          if (err) {
+              if (userRes.unauthorized) {
+                console.log('Unauthorized!');
+                res.sendStatus(401);
+                  // req.session.destroy(function(err) {
+                  //     res.clearCookie('sessionid');
+                  //     res.sendStatus(401);
+                  // });
+              } else {
+                  console.log(err, userRes);
+                  res.sendStatus(500);
+              }
+          } else {
+              res.send(userRes.body);
+          }
+      });
   }
 }

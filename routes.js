@@ -32,8 +32,6 @@ function accessToken(req, res) {
       return;
     }
 
-    api.accessToken(oauth.accessToken.create(result).token.access_token);
-
     // Attach `token` to the user's session for later use
     // This is where you could save the `token` to a database for later use
     req.session.token = oauth.accessToken.create(result);
@@ -42,9 +40,10 @@ function accessToken(req, res) {
   }
 }
 
+//TODO - make token verification part of middleware
 function authorized(req, res) {
-  if (api.accessToken()) {
-    const msg = 'You are logged in.<br>Access Token: ' +  api.accessToken();
+  if (req.session.token) {
+    const msg = 'You are logged in. Access Token: ' +  api.me(req.session.token.token.access_token);
     console.log(msg)
     res.send(msg);
   } else {
