@@ -1,5 +1,7 @@
 const app = require('express')();
 
+module.exports = app;
+
 const { 
   home, 
   authorization,
@@ -12,8 +14,6 @@ const {
   verifyToken
 } = require('./middleware');
 
-const port = process.env.PORT || 3000;
-
 // Enable sessions
 app.use(session());
 
@@ -25,6 +25,3 @@ app.get('/auth', authorization);
 app.get('/redirect', accessToken);
 // If access token exists, route will render user details
 app.get('/welcome', verifyToken, authorized);
-
-// Start server
-app.listen(port, () => console.log('Express server started on port ' + port));

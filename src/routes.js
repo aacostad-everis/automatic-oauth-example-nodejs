@@ -5,7 +5,7 @@ module.exports = {
   authorized
 }
 
-const oauth = require('./oauth-setup');
+const oauth = require('./oauth');
 const api = require('./api');
 
 function home(req, res) {

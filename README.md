@@ -28,7 +28,11 @@ Install node.js
 
 ### Configure your client id and client secret
 
-Add your Automatic client id and client secret to `app.js` or as environment variables named `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET`.
+Add your Automatic client id to `package.json`'s `automatic` section or as environment variable.
+
+> Secret ID has to be passed through dedicated environment variable!
+
+Those environment variables are, respectively, `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET`.
 
 ### Run the app
 
