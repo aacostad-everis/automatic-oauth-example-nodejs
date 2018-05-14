@@ -40,27 +40,22 @@ function accessToken(req, res) {
   }
 }
 
-//TODO - make token verification part of middleware
 function authorized(req, res) {
-  if (req.session.token) {
-    const me = api
-      .me(req.session.token.token.access_token)
-      .then(function (result) {
-        if (result.status in [401, 403]) {
-          console.log('Unauthorized!');
-          req.session.destroy();
-          res.sendStatus(result.status);          
-        } else {
-          const msg = 'You are logged in as ' + result.body.username;
-          console.log(msg);
-          res.send(msg);            
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        res.sendStatus(500);
-      })
-  } else {
-    
-  }
+  api
+    .me(req.session.token.token.access_token)
+    .then(result => {
+      if (result.status in [401, 403]) {
+        console.log('Unauthorized!');
+        req.session.destroy();
+        res.sendStatus(result.status);          
+      } else {
+        const msg = 'You are logged in as ' + result.body.username;
+        console.log(msg);
+        res.send(msg);            
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    })
 }

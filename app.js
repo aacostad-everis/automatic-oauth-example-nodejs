@@ -1,6 +1,4 @@
-const express = require('express');
-const session = require('express-session');
-const app = express();
+const app = require('express')();
 
 const { 
   home, 
@@ -9,22 +7,15 @@ const {
   authorized
 } = require('./routes');
 
+const {
+  session,
+  verifyToken
+} = require('./middleware');
+
 const port = process.env.PORT || 3000;
 
 // Enable sessions
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}));
-
-// token verification middleware
-app.use((req, res, next) => {
-  if (!req.session.token && req.path != '/') {
-    res.redirect('/');
-  }
-  next();
-});
+app.use(session());
 
 // Home route - there's only a link to /auth route
 app.get('/', home);
@@ -33,7 +24,7 @@ app.get('/auth', authorization);
 // Auth Step 2 - callback service parsing the authorization token and asking for the access token
 app.get('/redirect', accessToken);
 // If access token exists, route will render user details
-app.get('/welcome', authorized);
+app.get('/welcome', verifyToken, authorized);
 
 // Start server
 app.listen(port, () => console.log('Express server started on port ' + port));
