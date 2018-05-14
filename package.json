@@ -7,6 +7,9 @@
     "email": "brendan@automatic.com",
     "url": "http://www.automatic.com"
   },
+  "contributors": [
+    "Pawel Kornijow"
+  ],  
   "repository": {
     "type": "git",
     "url": "http://github.com/automatic/automatic-oauth-example-nodejs.git"
