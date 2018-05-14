@@ -18,6 +18,14 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// token verification middleware
+app.use((req, res, next) => {
+  if (!req.session.token && req.path != '/') {
+    res.redirect('/');
+  }
+  next();
+});
+
 // Home route - there's only a link to /auth route
 app.get('/', home);
 // Auth Step 1 - redirection to Automatic oauth2 endpoint, passing requested scope

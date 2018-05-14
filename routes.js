@@ -61,6 +61,6 @@ function authorized(req, res) {
         res.sendStatus(500);
       })
   } else {
-    res.redirect('/');
+    
   }
 }
