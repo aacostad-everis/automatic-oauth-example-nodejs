@@ -32,7 +32,7 @@ Add your Automatic client id to `package.json`'s `automatic` section or as envir
 
 > Secret ID has to be passed through dedicated environment variable!
 
-Those environment variables are, respectively, `AUTOMATIC_CLIENT_ID`, `AUTOMATIC_CLIENT_SECRET`.
+Those environment variables are, respectively, `AUTOMATIC_CLIENT_ID` and `AUTOMATIC_CLIENT_SECRET`.
 
 ### Run the app
 
