@@ -7,6 +7,9 @@
     "email": "brendan@automatic.com",
     "url": "http://www.automatic.com"
   },
+  "contributors": [
+    "Pawel Kornijow"
+  ],  
   "repository": {
     "type": "git",
     "url": "http://github.com/automatic/automatic-oauth-example-nodejs.git"
@@ -18,12 +21,19 @@
   "dependencies": {
     "express": "4.13.4",
     "express-session": "1.13.0",
-    "simple-oauth2": "0.7.0"
+    "simple-oauth2": "0.7.0",
+    "superagent": "^3.8.3"
   },
   "engines": {
-    "node": "6.2.0"
+    "node": "8.4.0"
   },
   "scripts": {
-    "start": "node app"
+    "start": "node index.js"
+  },
+  "automatic": {
+    "clientId": "Your Automatic Client ID. Get one from developer.automatic.com",
+    "site": "https://accounts.automatic.com",
+    "tokenPath": "/oauth/access_token",
+    "scope": "scope:user:profile scope:trip scope:location scope:vehicle:profile scope:vehicle:events scope:behavior"
   }
 }
