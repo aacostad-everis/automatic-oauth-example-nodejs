@@ -32,7 +32,7 @@
   },
   "automatic": {
     "clientId": "Your Automatic Client ID. Get one from developer.automatic.com",
-    "site": "https://accounts.automatic.com",
+    "site": "https://damm-identiy-everis-developer-edition.eu32.force.com/damm",
     "tokenPath": "/oauth/access_token",
     "scope": "scope:user:profile scope:trip scope:location scope:vehicle:profile scope:vehicle:events scope:behavior"
   }
