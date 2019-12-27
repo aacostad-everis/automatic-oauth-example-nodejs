@@ -31,9 +31,9 @@
     "start": "node index.js"
   },
   "automatic": {
-    "clientId": "Your Automatic Client ID. Get one from developer.automatic.com",
+    "clientId": "Your Salesforce Client ID. Get one from your admin.",
     "site": "https://damm-identiy-everis-developer-edition.eu32.force.com/damm",
-    "tokenPath": "/oauth/access_token",
-    "scope": "scope:user:profile scope:trip scope:location scope:vehicle:profile scope:vehicle:events scope:behavior"
+    "tokenPath": "/customers/services/oauth2/token",
+    "scope": ""
   }
 }
